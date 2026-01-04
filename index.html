@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2025 Agentic Design Timeline</title>
+  <meta name="description" content="A high-end architectural visualization of the evolution of agentic UX and design patterns in 2025.">
+  
+  <!-- CDNs -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      background-color: #050505;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #000; }
+    ::-webkit-scrollbar-thumb { background: #1a1a1a; }
+    ::-webkit-scrollbar-thumb:hover { background: #333; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    h1, h2, h3 { letter-spacing: -0.05em; }
+    .selection-blue::selection { background: #3b82f6; color: white; }
+  </style>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "react": "https://esm.sh/react@18.3.1",
+      "react-dom/client": "https://esm.sh/react-dom@18.3.1/client",
+      "react/jsx-runtime": "https://esm.sh/react@18.3.1/jsx-runtime",
+      "framer-motion": "https://esm.sh/framer-motion@11.11.17?external=react,react-dom",
+      "htm": "https://esm.sh/htm@3.1.1"
+    }
+  }
+  </script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="selection-blue">
+  <div id="root"></div>
+
+  <script type="module">
+    import React, { useState, useMemo, useEffect } from 'react';
+    import ReactDOM from 'react-dom/client';
+    import { motion, AnimatePresence } from 'framer-motion';
+    import htm from 'htm';
+
+    const html = htm.bind(React.createElement);
+
+    const Category = {
+      Action: 'Action',
+      Context: 'Context',
+      Trust: 'Trust',
+      Orchestration: 'Orchestration'
+    };
+
+    const EVENTS = [
+      { id: '01', month: 'JAN', title: 'OpenAI Launches "Operator"', event: 'OpenAI released a research preview of "Operator," a General-Purpose Action (GPA) agent that takes over web browsers to navigate and act independently.', shift: 'From "Chat" to "Action"', insight: 'This challenged the idea that "Chat" is the final UI. It forced the profession to consider "headless" modes where apps are built for agent traversability. Designers began evaluating how interfaces "look" to robots, prioritizing semantic clarity over visual decoration.', categories: [Category.Action], impact: 'Critical', model: 'GPT-5 GPA', company: 'OpenAI', unsplashId: 'photo-1677442136019-21780ecad995' },
+      { id: '02', month: 'MAR', title: 'Apple Visual Intelligence', event: 'Apple rolled out features allowing the OS to "see" and understand on-screen content across any app to perform cross-app tasks.', shift: 'System-Level Context', insight: 'Applications lost their silos. Users could reference data inside one app while interacting with another. Designers shifted from internal consistency to universal readability, ensuring system-level agents could interpret UI elements across different software ecosystems.', categories: [Category.Context], impact: 'High', model: 'Apple Intelligence V2', company: 'Apple', unsplashId: 'photo-1633412802994-5c058f151b66' },
+      { id: '03', month: 'MAY', title: 'Figma Launches "Make" & "Sites"', event: 'Figma unveiled "Figma Make" (prompt-to-prototype) and "Figma Sites" (no-code builder), collapsing the distance between design and deployment.', shift: 'The Death of "Hand-Off"', insight: 'The design artifact evolved from a static blueprint into a functional product. Designers began thinking in terms of logic, states, and production-ready components earlier in the process, as high-fidelity prototypes effectively became the production code.', categories: [Category.Action], impact: 'High', model: 'Figma AI Engine', company: 'Figma', unsplashId: 'photo-1581291518633-83b4ebd1d83e' },
+      { id: '04', month: 'JUN', title: 'Apple Foundation Models API', event: 'Apple opened on-device foundation models to third-party developers, allowing apps to define "Intents" for OS agent execution.', shift: 'Intent Modeling', insight: 'The profession moved from designing rigid linear flows to designing intent definitions. The primary challenge became defining the "skills" and "capabilities" an application exposes to the wider OS ecosystem, rather than just the screens a user sees.', categories: [Category.Orchestration], impact: 'High', model: 'On-Device Foundation', company: 'Apple', unsplashId: 'photo-1620712943543-bcc4688e7485' },
+      { id: '05', month: 'JUL', title: 'Agentic UX (AX) Standards', event: 'Industry leaders formally defined "Agentic Experience (AX)" as a distinct discipline separate from traditional UX.', shift: 'Designing for Trust, Not Clicks', insight: 'Success metrics shifted from engagement to trust. Designers had to invent new patterns for transparency and confirmation, ensuring users felt in control of autonomous systems without being overwhelmed by technical complexity.', categories: [Category.Trust], impact: 'Critical', model: 'AX Standards 1.0', company: 'Industry', unsplashId: 'photo-1639322537228-f710d846310a' },
+      { id: '06', month: 'SEP', title: 'Generative UI Mainstream', event: 'Tools and platforms normalized real-time adaptive interfaces—dashboards that rearrange themselves based on user behavior during a session.', shift: 'Disposable UI', insight: 'The concept of static dashboards gave way to dynamic component libraries. Designers stopped building views and started designing systems that AI assembles on the fly, creating interfaces that expand or simplify based on real-time cognitive load.', categories: [Category.Context], impact: 'Medium', model: 'Fluid UI', company: 'System', unsplashId: 'photo-1618005182384-a83a8bd57fbe' },
+      { id: '07', month: 'OCT', title: 'Adobe "Project Moonlight"', event: 'Adobe teased "Moonlight," a cross-app agent capable of orchestrating complex workflows across multiple creative applications without human intervention.', shift: 'Multi-Agent Orchestration', insight: 'This highlighted the "Manager" role in design. Focus shifted to the handoffs between automated actors. Designers began visualizing how specialized agents collaborate, treating agents as distinct personas within a larger service blueprint.', categories: [Category.Orchestration], impact: 'High', model: 'Firefly Agent', company: 'Adobe', unsplashId: 'photo-1620641788421-7a1c342ea42e' },
+      { id: '08', month: 'OCT', title: 'Agnostic Creative Models', event: 'Adobe allowed users to select third-party models (like Runway or Google Gemini) directly inside their creative suite.', shift: 'Model Agnosticism', insight: 'Designers realized the model is a feature, not the product. The challenge became "Choice Architecture"—helping users select the right brain for the job based on cost, speed, or creative nuance for specific tasks.', categories: [Category.Orchestration], impact: 'Medium', model: 'Multi-Model Bridge', company: 'Adobe', unsplashId: 'photo-1558655146-d09347e92766' },
+      { id: '09', month: 'NOV', title: 'Self-Healing System Surge', event: 'A surge in design patterns focused on automated error recovery—how an agent asks for help when it reaches a logical dead end.', shift: 'Human-in-the-Loop (HITL) Design', insight: 'The "Escalation" became a critical interaction pattern. Designers had to intentionally engineer friction back into seamless systems, creating clear protocols for when an agent should pause for human validation and how it presents its confusion.', categories: [Category.Trust], impact: 'High', model: 'Resilient LLM Pattern', company: 'System', unsplashId: 'photo-1550751827-4bd374c3f58b' },
+      { id: '10', month: 'DEC', title: 'Forensic Design Observability', event: 'The rise of agent observability platforms moved from engineering backends to design frontends.', shift: 'Forensic Design', insight: 'Feedback loops changed. Instead of session replays, designers began analyzing "Thought Traces." Visualizing an agent\'s reasoning chain became a fundamental skill for identifying UX bottlenecks and iterating on product logic.', categories: [Category.Trust], impact: 'High', model: 'Observability UI', company: 'System', unsplashId: 'photo-1451187580459-43490279c0fa' }
+    ];
+
+    const CompanyIcon = ({ company }) => {
+      const iconClasses = "w-5 h-5";
+      if (company === 'Apple') return html`<svg viewBox="0 0 24 24" fill="#A2AAAD" className="${iconClasses}"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.06.75.79-.02 1.93-.89 3.41-.71 1.63.2 2.76 1.01 3.39 2.1-3.22 1.96-2.72 6.13.51 7.42-.64 1.51-1.4 2.51-2.37 3.41zM12.03 7.25c-.13-2.23 1.51-3.99 3.33-4.25.26 2.37-1.77 4.29-3.33 4.25z"/></svg>`;
+      if (company === 'Figma') return html`<svg viewBox="0 0 38 57" className="${iconClasses}"><path d="M19 28.5C19 33.7467 14.7467 38 9.5 38C4.25329 38 0 33.7467 0 28.5C0 23.2533 4.25329 19 9.5 19H19V28.5Z" fill="#A259FF"/><path d="M0 47.5C0 42.2533 4.25329 38 9.5 38H19V47.5C19 52.7467 14.7467 57 9.5 57C4.25329 57 0 52.7467 0 47.5Z" fill="#0ACF83"/><path d="M19 0H28.5C33.7467 0 38 4.25329 38 9.5C38 14.7467 33.7467 19 28.5 19H19V0Z" fill="#FF7262"/><path d="M0 9.5C0 4.25329 4.25329 0 9.5 0H19V19H9.5C4.25329 19 0 14.7467 0 9.5Z" fill="#F24E1E"/><path d="M19 19H28.5C33.7467 19 38 23.2533 38 28.5C38 33.7467 33.7467 38 28.5 38H19V19Z" fill="#1ABCFE"/></svg>`;
+      if (company === 'Adobe') return html`<svg viewBox="0 0 24 24" className="${iconClasses}"><rect width="24" height="24" rx="5" fill="#FA0F00"/><path d="M13.8 5.6H20.6V20.2L13.8 5.6ZM10.2 5.6H3.4V20.2L10.2 5.6ZM12 11.5L16.5 20.2H13.6L12.3 17.5H10L12 11.5Z" fill="white"/></svg>`;
+      return html`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="${iconClasses}"><circle cx="12" cy="12" r="10"/><path d="M12 2v20M2 12h20"/></svg>`;
+    };
+
+    const FilterBar = ({ activeCategory, onSelectCategory }) => {
+      const categories = Object.values(Category);
+      return html`
+        <div className="fixed top-0 left-0 right-0 z-50 border-b border-zinc-900 bg-black/95 backdrop-blur-md transition-all">
+          <div className="flex flex-col md:flex-row items-center justify-between py-4 px-6 md:px-16 gap-4 md:gap-0">
+            <div className="flex items-center justify-between w-full md:w-auto gap-4">
+              <h1 className="text-[10px] md:text-xs font-black uppercase tracking-[0.4em] md:tracking-[0.6em] text-white whitespace-nowrap">
+                ARCHIVE_<span className="text-zinc-700">25</span>
+              </h1>
+              <div className="md:hidden flex items-center gap-2 px-3 py-1 border border-zinc-800 bg-zinc-900/20">
+                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                 <span className="text-[8px] mono uppercase tracking-widest font-black text-zinc-500">LIVE</span>
+              </div>
+            </div>
+            
+            <div className="flex w-full md:w-auto overflow-x-auto no-scrollbar items-center gap-1 pb-2 md:pb-0">
+              <button onClick=${() => onSelectCategory(null)} className=${`shrink-0 px-3 md:px-4 py-2 text-[8px] md:text-[9px] mono uppercase tracking-widest transition-all font-black ${activeCategory === null ? 'text-white border-b border-white' : 'text-zinc-600 hover:text-zinc-300'}`}>ALL</button>
+              ${categories.map(cat => html`
+                <button key=${cat} onClick=${() => onSelectCategory(cat)} className=${`shrink-0 px-3 md:px-4 py-2 text-[8px] md:text-[9px] mono uppercase tracking-widest transition-all font-black ${activeCategory === cat ? 'text-white border-b border-white' : 'text-zinc-600 hover:text-zinc-300'}`}>${cat}</button>
+              `)}
+            </div>
+
+            <div className="hidden md:flex items-center gap-4 px-4 py-1.5 border border-zinc-800 bg-zinc-900/20">
+              <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-[9px] mono uppercase tracking-[0.3em] font-black text-zinc-500">LIVE</span>
+            </div>
+          </div>
+        </div>
+      `;
+    };
+
+    const EventTile = ({ event, isSelected, onSelect }) => {
+      const imageUrl = `https://images.unsplash.com/${event.unsplashId}?auto=format&fit=crop&q=85&w=1200`;
+      return html`
+        <${motion.div} initial=${{ opacity: 0, y: 30 }} whileInView=${{ opacity: 1, y: 0 }} viewport=${{ once: true, margin: "-100px" }} className="group relative">
+          <div className=${`flex flex-col lg:flex-row gap-6 md:gap-8 items-start transition-all duration-300 p-4 md:p-5 border-2 ${isSelected ? 'border-blue-500 bg-blue-500/5 shadow-[0_0_15px_rgba(59,130,246,0.1)]' : 'border-zinc-900 bg-zinc-950/20 hover:border-zinc-700'}`}>
+            <div onClick=${() => onSelect(isSelected ? null : event.id)} className="w-full lg:w-2/5 aspect-[16/8] relative overflow-hidden cursor-pointer bg-zinc-900 border border-zinc-800">
+              <${motion.img} src=${imageUrl} className=${`absolute inset-0 w-full h-full object-cover transition-all duration-700 ${isSelected ? 'grayscale-0 opacity-100' : 'grayscale opacity-50'} group-hover:opacity-100 group-hover:grayscale-0`} />
+              <div className="absolute top-3 left-3">
+                <div className="px-2 py-1 text-[8px] mono uppercase tracking-widest font-black bg-black/70 border border-white/10 text-white">${event.month} // SPEC_${event.id}</div>
+              </div>
+            </div>
+            <div className="w-full lg:w-3/5 flex flex-col pt-1">
+              <div className="flex items-center gap-3 mb-3 md:mb-4">
+                <div className="w-8 h-8 flex items-center justify-center bg-zinc-900 border border-zinc-800 rounded overflow-hidden">
+                  <${CompanyIcon} company=${event.company} />
+                </div>
+                <span className="text-[10px] mono font-black uppercase tracking-[0.3em] text-zinc-600">${event.company}</span>
+              </div>
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tighter leading-[0.9] mb-4 md:mb-6 text-white group-hover:text-blue-400 transition-colors">${event.title}</h3>
+              <div className="space-y-4 md:space-y-5">
+                <div className="border-l-2 border-zinc-800 pl-4 md:pl-5">
+                  <span className="text-[8px] mono uppercase tracking-widest font-black text-zinc-700 mb-1 block">SHIFT</span>
+                  <p className="text-base md:text-lg font-bold tracking-tight text-zinc-400 leading-snug">${event.shift}</p>
+                </div>
+                <button onClick=${() => onSelect(isSelected ? null : event.id)} className=${`text-[9px] mono uppercase tracking-widest font-black px-4 py-2 border transition-all ${isSelected ? 'bg-white text-black border-white' : 'text-zinc-500 border-zinc-800 hover:text-white hover:border-zinc-500'}`}>
+                  [ ${isSelected ? 'Hide details' : 'View details'} ]
+                </button>
+              </div>
+            </div>
+          </div>
+          <${AnimatePresence}>
+            ${isSelected && html`
+              <${motion.div} initial=${{ height: 0, opacity: 0 }} animate=${{ height: 'auto', opacity: 1 }} exit=${{ height: 0, opacity: 0 }} transition=${{ duration: 0.3 }} className="overflow-hidden bg-[#08080a] border-x-2 border-b-2 border-blue-500">
+                <div className="p-4 md:p-8 space-y-8">
+                  <div className="flex flex-col gap-6">
+                    <div>
+                      <h4 className="text-[10px] mono uppercase tracking-widest text-blue-500 mb-2 font-black uppercase">The Event</h4>
+                      <p className="text-base md:text-lg leading-relaxed font-normal text-zinc-200">${event.event}</p>
+                    </div>
+                    <div>
+                      <h4 className="text-[10px] mono uppercase tracking-widest text-blue-500 mb-2 font-black uppercase">The Shift: <span className="text-white">${event.shift}</span></h4>
+                      <p className="text-sm md:text-base leading-relaxed font-light text-zinc-400">${event.insight.split('. ')[0]}.</p>
+                    </div>
+                    <div className="bg-blue-600/5 border-l-2 border-blue-500 p-4 md:p-5 rounded-r-sm">
+                      <h4 className="text-[10px] mono uppercase tracking-widest text-blue-500 mb-2 font-black uppercase">IMPACT ON DESIGN PROCESS</h4>
+                      <p className="text-sm md:text-base leading-relaxed font-light text-zinc-300">${event.insight.split('. ').slice(1).join('. ') || event.insight}</p>
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap items-center gap-8 pt-6 border-t border-zinc-900">
+                    <div className="flex flex-col gap-1">
+                      <span className="text-[8px] mono text-zinc-600 uppercase font-black tracking-widest uppercase">ARCHITECTURE</span>
+                      <span className="text-[10px] mono uppercase text-zinc-500">${event.model}</span>
+                    </div>
+                    <div className="flex flex-col gap-1">
+                      <span className="text-[8px] mono text-zinc-600 uppercase font-black tracking-widest uppercase">PROTOCOL</span>
+                      <div className="flex gap-2">
+                        ${event.categories.map(cat => html`<span key=${cat} className="text-[9px] mono uppercase text-blue-400/70">${cat}</span>`)}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </${motion.div}>
+            `}
+          </${AnimatePresence}>
+        </${motion.div}>
+      `;
+    };
+
+    const App = () => {
+      const [activeCategory, setActiveCategory] = useState(null);
+      const [selectedId, setSelectedId] = useState(null);
+      const [currentMonthKey, setCurrentMonthKey] = useState('JAN_01');
+
+      const filteredEvents = useMemo(() => {
+        if (!activeCategory) return EVENTS;
+        return EVENTS.filter(e => e.categories.includes(activeCategory));
+      }, [activeCategory]);
+
+      useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const month = entry.target.getAttribute('data-month');
+              const id = entry.target.getAttribute('data-id');
+              if (month) setCurrentMonthKey(`${month}_${id}`);
+            }
+          });
+        }, { threshold: 0.5, rootMargin: "-100px 0px -100px 0px" });
+        document.querySelectorAll('.specimen-section').forEach(section => observer.observe(section));
+        return () => observer.disconnect();
+      }, [filteredEvents]);
+
+      const scrollToMonth = (id) => {
+        const el = document.getElementById(`specimen-${id}`);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      };
+
+      return html`
+        <div className="min-h-screen bg-[#050505] text-white overflow-x-hidden font-sans">
+          <${FilterBar} activeCategory=${activeCategory} onSelectCategory=${(cat) => { setActiveCategory(cat); setSelectedId(null); }} />
+          <div className="flex">
+            <aside className="fixed left-0 top-[88px] bottom-0 w-20 border-r border-zinc-900/50 bg-black/50 hidden md:flex flex-col py-8 z-40 backdrop-blur-sm">
+              <div className="flex flex-col h-full relative overflow-y-auto no-scrollbar items-center gap-1">
+                ${EVENTS.map(event => {
+                  const isActive = currentMonthKey === `${event.month}_${event.id}`;
+                  return html`
+                    <button key=${`${event.month}-${event.id}`} onClick=${() => scrollToMonth(event.id)} className="relative flex items-center justify-center w-full h-10 group transition-all">
+                      <span className=${`text-[10px] mono font-medium tracking-[0.2em] transition-all duration-300 ${isActive ? 'text-white' : 'text-zinc-600 group-hover:text-zinc-300'}`}>${event.month}</span>
+                      ${isActive && html`<${motion.div} layoutId="sidebar-active" className="absolute left-0 w-[2px] h-4 bg-blue-500" />`}
+                    </button>
+                  `;
+                })}
+              </div>
+              <div className="mt-auto px-2 py-6 text-[7px] mono opacity-20 tracking-[0.2em] font-bold uppercase text-center">M_25</div>
+            </aside>
+            <main className="flex-1 md:ml-20 px-4 md:px-20 lg:px-32 pt-32 md:pt-24">
+              <header className="mb-12 md:mb-24 border-l border-zinc-800 pl-6 md:pl-20 relative">
+                <${motion.div} initial=${{ opacity: 0, x: -20 }} animate=${{ opacity: 1, x: 0 }} transition=${{ duration: 0.8 }}>
+                  <div className="text-[10px] mono uppercase tracking-[0.5em] mb-6 font-black flex items-center gap-6 text-zinc-600">
+                    <span className="w-16 h-[1px] bg-zinc-800" /> DPT. OF FUTURE INTERFACES
+                  </div>
+                  <div className="relative inline-block border-2 border-blue-500/30 p-6 md:p-10 pb-8 md:pb-12 mb-8 md:mb-10 max-w-4xl">
+                    <h2 className="text-4xl sm:text-5xl md:text-7xl xl:text-[8rem] font-black tracking-tighter leading-[0.8] text-white">
+                      The 2025 <br/><span className="italic">Agentic</span> <br/>Design <br/>Timeline.
+                    </h2>
+                    <div className="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-blue-500" />
+                    <div className="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-blue-500" />
+                  </div>
+                  <p className="max-w-xl text-lg md:text-xl leading-relaxed font-light tracking-tight text-zinc-500">
+                    Mapping the collapse of the screen and the rise of autonomous orchestration. A record of specimens that redefined human-computer interaction.
+                  </p>
+                </${motion.div}>
+              </header>
+              <div className="space-y-16 md:space-y-32 pb-64 max-w-7xl">
+                <${AnimatePresence} mode="wait">
+                  ${filteredEvents.map(event => html`
+                    <div key=${event.id} id=${`specimen-${event.id}`} data-month=${event.month} data-id=${event.id} className="specimen-section scroll-mt-40">
+                      <${EventTile} event=${event} isSelected=${selectedId === event.id} onSelect=${setSelectedId} />
+                    </div>
+                  `)}
+                </${AnimatePresence}>
+              </div>
+              <footer className="border-t border-zinc-900 py-12 md:py-20 pb-16 flex flex-col md:flex-row justify-between items-start gap-12 opacity-30">
+                <div className="max-w-sm">
+                  <h3 className="text-[9px] font-black uppercase tracking-[0.4em] mb-6 text-zinc-500">ARCHIVAL_PROTOCOL_2025</h3>
+                  <p className="text-[11px] mono leading-relaxed uppercase">Chronological mapping of interface autonomy and the shift from tools to collaborators.</p>
+                </div>
+                <div className="text-right">
+                  <div className="text-[11px] mono uppercase font-black text-blue-400 tracking-[0.3em] uppercase">CURATED BY HARSHITA YADAV</div>
+                </div>
+              </footer>
+            </main>
+          </div>
+        </div>
+      `;
+    };
+
+    const rootElement = document.getElementById('root');
+    if (rootElement) {
+      const root = ReactDOM.createRoot(rootElement);
+      root.render(html`<${App} />`);
+    }
+  </script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
